@@ -3,8 +3,32 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
+interface RoverPhoto {
+  id: number;
+  sol: number;
+  camera: {
+    id: number;
+    name: string;
+    rover_id: number;
+    full_name: string;
+  };
+  img_src: string;
+  earth_date: string;
+  rover: {
+    id: number;
+    name: string;
+    landing_date: string;
+    launch_date: string;
+    status: string;
+  };
+}
+
+interface ApiResponse {
+  photos: RoverPhoto[];
+}
+
 export default function Home() {
-  const [photo, setPhoto] = useState(null);
+  const [photo, setPhoto] = useState<RoverPhoto | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -15,7 +39,7 @@ export default function Home() {
       try {
         setLoading(true);
         const res = await fetch(URL);
-        const apiData = await res.json();
+        const apiData: ApiResponse = await res.json();
 
         // Set the first object from the photos array
         if (apiData.photos && apiData.photos.length > 0) {
@@ -26,7 +50,7 @@ export default function Home() {
 
         setLoading(false);
       } catch (error) {
-        console.log(error.message);
+        console.error('Error fetching data:', error);
         setLoading(false);
       }
     }
