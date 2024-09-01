@@ -31,4 +31,7 @@ jobs:
         run: npm run build
 
       - name: Deploy to Vercel
-        run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
+        run: vercel --prod --token $VERCEL_TOKEN
