@@ -33,7 +33,7 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchAPIData() {
-      const NASA_KEY = process.env.NASA_API_KEY;
+      const NASA_KEY = process.env.NEXT_PUBLIC_NASA_API_KEY;
       const URL = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=2&api_key=${NASA_KEY}`;
 
       try {
